@@ -36,12 +36,19 @@ namespace NitroxModel.DataStructures.GameLogic
         [ProtoMember(9)]
         public bool AppliedThrottle { get; }
 
+        [ProtoMember(10)]
+        public Vector3 LeftArmPosition { get; }
+
+        [ProtoMember(11)]
+        public Vector3 RightArmPosition { get; }
+
         public VehicleMovementData()
         {
             // For serialization purposes
         }
 
-        public VehicleMovementData(TechType techType, string guid, Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity, float steeringWheelYaw, float steeringWheelPitch, bool appliedThrottle)
+        public VehicleMovementData(TechType techType, string guid, Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity, float steeringWheelYaw, float steeringWheelPitch, bool appliedThrottle, 
+            Vector3 leftArmPosition, Vector3 rightArmPosition)
         {
             TechType = techType;
             Guid = guid;
@@ -52,6 +59,8 @@ namespace NitroxModel.DataStructures.GameLogic
             SteeringWheelYaw = steeringWheelYaw;
             SteeringWheelPitch = steeringWheelPitch;
             AppliedThrottle = appliedThrottle;
+            LeftArmPosition = leftArmPosition;
+            RightArmPosition = rightArmPosition;
         }
     }
 }

@@ -70,7 +70,10 @@
     <Compile Include="Communication\Abstract\IMultiplayerSessionConnectionState.cs" />
     <Compile Include="Communication\Abstract\IMultiplayerSessionState.cs" />
     <Compile Include="Communication\Abstract\IPacketSender.cs" />
-    <Compile Include="Communication\Packets\Processors\ExosuitModuleActionProcessor.cs" />
+    <Compile Include="Communication\Packets\Processors\ExosuitSpawnedArmProcessor.cs" />
+    <Compile Include="Communication\Packets\Processors\ExosuitClawActionProcessor.cs" />
+    <Compile Include="Communication\Packets\Processors\VehicleModuleChangeProcessor.cs" />
+    <Compile Include="Communication\Packets\Processors\ExosuitTorpedoActionProcessor.cs" />
     <Compile Include="Communication\Packets\Processors\SubRootChangedProcessor.cs" />
     <Compile Include="Communication\Packets\Processors\SceneDebuggerChangeProcessor.cs" />
     <Compile Include="Communication\DeferringPacketReceiver.cs" />
@@ -153,7 +156,8 @@
     <Compile Include="Debuggers\BaseDebugger.cs" />
     <Compile Include="Debuggers\NetworkDebugger.cs" />
     <Compile Include="Debuggers\SceneDebugger.cs" />
-    <Compile Include="GameLogic\ExosuitModulesEvent.cs" />
+    <Compile Include="GameLogic\ExosuitModuleEvent.cs" />
+    <Compile Include="GameLogic\ModuleUpgradeEvent.cs" />
     <Compile Include="MonoBehaviours\DiscordRP\DiscordController.cs" />
     <Compile Include="MonoBehaviours\DiscordRP\DiscordRpc.cs" />
     <Compile Include="GameLogic\AI.cs" />

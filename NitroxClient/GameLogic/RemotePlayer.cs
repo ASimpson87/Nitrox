@@ -4,6 +4,7 @@ using NitroxClient.MonoBehaviours;
 using NitroxClient.Unity.Helper;
 using NitroxModel.DataStructures.Util;
 using NitroxModel.Helper;
+using NitroxModel.Logger;
 using NitroxModel.MultiplayerSession;
 using UnityEngine;
 
@@ -111,7 +112,6 @@ namespace NitroxClient.GameLogic
                     mpCyclops.CurrentPlayer = null;
                     mpCyclops.Exit();
                 }
-
                 RigidBody.isKinematic = AnimationController["cyclops_steering"] = newPilotingChair != null;
             }
         }
@@ -163,6 +163,7 @@ namespace NitroxClient.GameLogic
 
                 AnimationController["in_seamoth"] = newVehicle is SeaMoth;
                 AnimationController["in_exosuit"] = AnimationController["using_mechsuit"] = newVehicle is Exosuit;
+
             }
         }
 

@@ -4,6 +4,7 @@ using Harmony;
 using NitroxClient.Communication;
 using NitroxClient.Communication.Abstract;
 using NitroxClient.GameLogic;
+using NitroxClient.GameLogic.Helper;
 using NitroxModel.Core;
 using NitroxModel.Logger;
 using NitroxModel.Packets;
@@ -11,16 +12,15 @@ using UnityEngine;
 
 namespace NitroxPatcher.Patches
 {
-    public class Exosuit_OnSlotRightDown_Patch : NitroxPatch
+    public class ExosuitTorpedoArmShoot_Patch : NitroxPatch
     {
         public static readonly Type TARGET_CLASS = typeof(ExosuitTorpedoArm);
         public static readonly MethodInfo TARGET_METHOD = TARGET_CLASS.GetMethod("Shoot", BindingFlags.NonPublic | BindingFlags.Instance);
 
         public static bool Prefix(ExosuitTorpedoArm __instance, TorpedoType torpedoType, Transform siloTransform, bool verbose, PacketSuppressor<ItemContainerRemove> __state)
         {
-            Log.Info("TORPEDO:" + torpedoType + siloTransform);
             __state = NitroxServiceLocator.LocateService<IPacketSender>().Suppress<ItemContainerRemove>();
-            NitroxServiceLocator.LocateService<ExosuitModulesEvent>().BroadcastTorpedoLaunch(torpedoType, siloTransform, verbose, __instance);
+            NitroxServiceLocator.LocateService<ExosuitModuleEvent>().BroadcastTorpedoLaunch(__instance, torpedoType, siloTransform, verbose);
 
             return true;
         }

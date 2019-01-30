@@ -58,6 +58,8 @@ namespace NitroxClient.MonoBehaviours
             TechType techType;
             float steeringWheelYaw = 0f, steeringWheelPitch = 0f;
             bool appliedThrottle = false;
+            Vector3 leftArmPosition = new Vector3(0, 0, 0);
+            Vector3 rightArmPosition = new Vector3(0, 0, 0);
 
             if (vehicle != null)
             {
@@ -90,6 +92,10 @@ namespace NitroxClient.MonoBehaviours
                         if (exosuit)
                         {
                             appliedThrottle = (bool)exosuit.ReflectionGet("_jetsActive") && (float)exosuit.ReflectionGet("thrustPower") > 0f;
+                            Transform leftArmTransform = (Transform)exosuit.ReflectionGet("aimTargetLeft", true);
+                            Transform rightArmTransform = (Transform)exosuit.ReflectionGet("aimTargetRight", true);
+                            leftArmPosition = leftArmTransform.position;
+                            rightArmPosition = rightArmTransform.position;
                         }
                     }
                 }
@@ -122,7 +128,9 @@ namespace NitroxClient.MonoBehaviours
                                                   angularVelocity,
                                                   steeringWheelYaw,
                                                   steeringWheelPitch,
-                                                  appliedThrottle);
+                                                  appliedThrottle,
+                                                  leftArmPosition,
+                                                  rightArmPosition);
 
             return Optional<VehicleMovementData>.Of(model);
         }

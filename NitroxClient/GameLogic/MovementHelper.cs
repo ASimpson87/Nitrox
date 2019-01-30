@@ -1,5 +1,6 @@
 ﻿using System;
 using NitroxClient.Unity.Helper;
+using NitroxModel.Logger;
 using UnityEngine;
 
 namespace NitroxClient.GameLogic

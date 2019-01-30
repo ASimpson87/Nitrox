@@ -189,6 +189,10 @@
       <Project>{69BEE16A-B6E7-4642-8081-3928B32455DF}</Project>
       <Name>Lidgren.Network</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NitroxClient\NitroxClient.csproj">
+      <Project>{ED5034BD-66B5-4596-94B7-66A28D3EFF49}</Project>
+      <Name>NitroxClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NitroxModel\NitroxModel.csproj">
       <Project>{b16f4de7-21ad-4fef-955b-0a5a365fa4e3}</Project>
       <Name>NitroxModel</Name>

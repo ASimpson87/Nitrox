@@ -91,6 +91,7 @@ namespace NitroxClient.GameLogic
                     else if (exosuit)
                     {
                         mvc = exosuit.gameObject.EnsureComponent<MultiplayerExosuit>();
+                        mvc.SetArmPositions(vehicleModel.LeftArmPosition, vehicleModel.RightArmPosition);
                     }
                 }
 
@@ -98,10 +99,9 @@ namespace NitroxClient.GameLogic
                 {
                     mvc.SetPositionVelocityRotation(remotePosition, remoteVelocity, remoteRotation, angularVelocity);
                     mvc.SetThrottle(vehicleModel.AppliedThrottle);
-                    mvc.SetSteeringWheel(vehicleModel.SteeringWheelYaw, vehicleModel.SteeringWheelPitch);                    
+                    mvc.SetSteeringWheel(vehicleModel.SteeringWheelYaw, vehicleModel.SteeringWheelPitch);
                 }
             }
-
             if (player.IsPresent())
             {
                 RemotePlayer playerInstance = player.Get();
@@ -123,7 +123,6 @@ namespace NitroxClient.GameLogic
             Rigidbody rigidBody = gameObject.GetComponent<Rigidbody>();
             rigidBody.isKinematic = false;
             GuidHelper.SetNewGuid(gameObject, guid);
-
             // Updates names and colours with persisted data .....yeah.....
             if (techType != TechType.Cyclops)
             { // Seamoth & Prawn suit
@@ -247,7 +246,7 @@ namespace NitroxClient.GameLogic
 
                 // If there is a pilotId then there is a remote player.  We must
                 // detach the remote player before destroying the game object.
-                if (!string.IsNullOrEmpty(vehicle.pilotId)) 
+                if (!string.IsNullOrEmpty(vehicle.pilotId))
                 {
                     ushort pilot = ushort.Parse(vehicle.pilotId);
                     Optional<RemotePlayer> remotePilot = playerManager.Find(pilot);

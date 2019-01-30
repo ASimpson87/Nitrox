@@ -2,6 +2,7 @@
 using NitroxClient.GameLogic;
 using NitroxClient.Unity.Smoothing;
 using NitroxModel.Helper;
+using NitroxModel.Logger;
 using UnityEngine;
 
 namespace NitroxClient.MonoBehaviours
@@ -13,6 +14,8 @@ namespace NitroxClient.MonoBehaviours
         protected readonly SmoothParameter SmoothYaw = new SmoothParameter();
         protected readonly SmoothParameter SmoothPitch = new SmoothParameter();
         protected SmoothVector SmoothPosition;
+        protected SmoothVector SmoothLeftArm;
+        protected SmoothVector SmoothRightArm;
         protected SmoothVector SmoothVelocity;
         protected SmoothRotation SmoothRotation;
         protected SmoothVector SmoothAngularVelocity;
@@ -26,6 +29,8 @@ namespace NitroxClient.MonoBehaviours
             SmoothVelocity = new SmoothVector(rigidbody.velocity);
             SmoothRotation = new SmoothRotation(gameObject.transform.rotation);
             SmoothAngularVelocity = new SmoothVector(rigidbody.angularVelocity);
+            SmoothLeftArm = new SmoothVector(gameObject.transform.position);
+            SmoothRightArm = new SmoothVector(gameObject.transform.position);
         }
 
         protected virtual void FixedUpdate()
@@ -35,10 +40,12 @@ namespace NitroxClient.MonoBehaviours
 
             SmoothPosition.FixedUpdate();
             SmoothVelocity.FixedUpdate();
+            rigidbody.isKinematic = false; // we should maybe find a way to remove UWE's FreezeRigidBodyWhenFar component...tried removing it but caused a bunch of issues.
             rigidbody.velocity = MovementHelper.GetCorrectedVelocity(SmoothPosition.SmoothValue, SmoothVelocity.SmoothValue, gameObject, PlayerMovement.BROADCAST_INTERVAL);
             SmoothRotation.FixedUpdate();
             SmoothAngularVelocity.FixedUpdate();
             rigidbody.angularVelocity = MovementHelper.GetCorrectedAngularVelocity(SmoothRotation.SmoothValue, SmoothAngularVelocity.SmoothValue, gameObject, PlayerMovement.BROADCAST_INTERVAL);
+
         }
 
         internal void SetPositionVelocityRotation(Vector3 remotePosition, Vector3 remoteVelocity, Quaternion remoteRotation, Vector3 remoteAngularVelocity)
@@ -54,6 +61,12 @@ namespace NitroxClient.MonoBehaviours
         {
             SmoothYaw.Target = yaw;
             SmoothPitch.Target = pitch;
+        }
+
+        internal virtual void SetArmPositions(Vector3 leftArmPosition, Vector3 rightArmPosition)
+        {
+            SmoothLeftArm.Target = leftArmPosition;
+            SmoothRightArm.Target = rightArmPosition;
         }
 
         internal virtual void Enter()
@@ -73,13 +86,21 @@ namespace NitroxClient.MonoBehaviours
     {
         private readonly FieldInfo steeringWheelYaw = ReflectionHelper.GetField<T>("steeringWheelYaw");
         private readonly FieldInfo steeringWheelPitch = ReflectionHelper.GetField<T>("steeringWheelPitch");
+
+        private readonly FieldInfo leftArmPosition = ReflectionHelper.GetField<T>("aimTargetLeft", true);
+        private readonly FieldInfo rightArmPosition = ReflectionHelper.GetField<T>("aimTargetRight", true);
+
         protected T SteeringControl;
+        protected T ArmControl;
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
             SteeringControl.ReflectionSet(steeringWheelYaw, SmoothYaw.SmoothValue);
             SteeringControl.ReflectionSet(steeringWheelPitch, SmoothPitch.SmoothValue);
+
+            ArmControl.ReflectionSet(leftArmPosition, SmoothLeftArm.SmoothValue);
+            ArmControl.ReflectionSet(rightArmPosition, SmoothRightArm.SmoothValue);
         }
     }
 }

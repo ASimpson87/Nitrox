@@ -378,7 +378,6 @@ namespace NitroxClient.Communication.Packets.Processors
                                 InventoryItem inventoryItem = new InventoryItem(pickupable);
                                 inventoryItem.container = equipment;
                                 inventoryItem.item.Reparent(equipment.tr);
-
                                 Dictionary<string, InventoryItem> itemsBySlot = (Dictionary<string, InventoryItem>)equipment.ReflectionGet("equipment");
                                 itemsBySlot[equippedItem.Slot] = inventoryItem;
 

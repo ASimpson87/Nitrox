@@ -82,13 +82,16 @@
     <Compile Include="DataStructures\GameLogic\Perms.cs" />
     <Compile Include="DataStructures\GameLogic\PlayerStatsData.cs" />
     <Compile Include="DataStructures\GameLogic\PowerType.cs" />
+    <Compile Include="DataStructures\GameLogic\Exosuit.cs" />
     <Compile Include="Discovery\InstallationFinders\EpicGamesRegistryFinder.cs" />
     <Compile Include="Discovery\IFindGameInstallation.cs" />
     <Compile Include="Discovery\InstallationFinders\SteamGameRegistryFinder.cs" />
     <Compile Include="Discovery\InstallationFinders\ConfigFileGameFinder.cs" />
     <Compile Include="Helper\TextureScaler.cs" />
     <Compile Include="Helper\IPHelper.cs" />
-    <Compile Include="Packets\ExosuitModulesAction.cs" />
+    <Compile Include="Packets\ExosuitSpawnedArmAction.cs" />
+    <Compile Include="Packets\ExosuitClawAction.cs" />
+    <Compile Include="Packets\ExosuitTorpedoAction.cs" />
     <Compile Include="Packets\BedEnter.cs" />
     <Compile Include="Packets\SubRootChanged.cs" />
     <Compile Include="Packets\PlayerKicked.cs" />
@@ -183,6 +186,7 @@
     <Compile Include="Packets\StoryEventSend.cs" />
     <Compile Include="Packets\TimeChange.cs" />
     <Compile Include="Packets\ToggleLights.cs" />
+    <Compile Include="Packets\VehicleUpgradeModuleChanged.cs" />
     <Compile Include="Packets\VehicleUndocking.cs" />
     <Compile Include="Packets\VehicleDocking.cs" />
     <Compile Include="Packets\VehicleOnPilotModeChanged.cs" />

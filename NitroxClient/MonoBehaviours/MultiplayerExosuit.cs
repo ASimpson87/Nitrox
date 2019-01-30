@@ -1,4 +1,5 @@
 ﻿using NitroxModel.Helper;
+using NitroxModel.Logger;
 using UnityEngine;
 
 namespace NitroxClient.MonoBehaviours
@@ -21,6 +22,7 @@ namespace NitroxClient.MonoBehaviours
             exosuit.ReflectionCall("SetIKEnabled", false, false, new object[] { true });
             exosuit.ReflectionSet("thrustIntensity", 0f);
             exosuit.ambienceSound.Play();
+            
             base.Enter();
         }
 

@@ -38,7 +38,6 @@ namespace NitroxPatcher.Patches
                 Log.Debug($"Already have an exclusive lock on the vehicle: {guid}");
                 return true;
             }
-
             simulationOwnership.RequestSimulationLock(guid, SimulationLockType.EXCLUSIVE, ReceivedSimulationLockResponse);
 
             return false;

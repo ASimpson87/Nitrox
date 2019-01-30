@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NitroxClient.GameLogic;
 using NitroxModel.Core;
+using NitroxModel.Logger;
 using UnityEngine;
 
 namespace NitroxClient.MonoBehaviours
@@ -41,6 +42,7 @@ namespace NitroxClient.MonoBehaviours
 
         public static void StopWatchingEntity(string guid)
         {
+            Log.Info("Stopped watching Entity: " + guid);
             watchingEntitiesByGuid.Remove(guid);
         }
     }

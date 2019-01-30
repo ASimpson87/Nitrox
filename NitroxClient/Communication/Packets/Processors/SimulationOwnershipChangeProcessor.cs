@@ -32,7 +32,7 @@ namespace NitroxClient.Communication.Packets.Processors
                     {
                         StartBroadcastingEntityPosition(simulatedEntity.Guid);
                     }
-
+                    
                     simulationOwnershipManager.SimulateGuid(simulatedEntity.Guid, SimulationLockType.TRANSIENT);
                 }
                 else if(simulationOwnershipManager.HasAnyLockType(simulatedEntity.Guid))
