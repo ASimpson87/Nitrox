@@ -13,6 +13,7 @@ namespace NitroxClient.MonoBehaviours
         protected override void Awake()
         {
             SteeringControl = exosuit = GetComponent<Exosuit>();
+            ArmPositions = exosuit = GetComponent<Exosuit>();
             base.Awake();
         }
 
@@ -53,6 +54,18 @@ namespace NitroxClient.MonoBehaviours
                     exosuit.fxcontrol.Stop(0);
                 }
             }
+        }
+
+        internal override void SetArmPositions(Vector3 leftArmPosition, Vector3 rightArmPosition)
+        {
+            base.SetArmPositions(leftArmPosition, rightArmPosition);
+
+            Transform leftAim = (Transform)exosuit.ReflectionGet("aimTargetLeft", true);
+            Transform rightAim = (Transform)exosuit.ReflectionGet("aimTargetRight", true);
+            leftAim.position = leftArmPosition;
+            rightAim.position = rightArmPosition;
+            exosuit.ReflectionSet("aimTargetLeft", leftAim, true);
+            exosuit.ReflectionSet("aimTargetRight", rightAim, true);
         }
     }
 }

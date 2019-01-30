@@ -92,10 +92,10 @@ namespace NitroxClient.MonoBehaviours
                         if (exosuit)
                         {
                             appliedThrottle = (bool)exosuit.ReflectionGet("_jetsActive") && (float)exosuit.ReflectionGet("thrustPower") > 0f;
-                            Transform leftArmTransform = (Transform)exosuit.ReflectionGet("aimTargetLeft", true);
-                            Transform rightArmTransform = (Transform)exosuit.ReflectionGet("aimTargetRight", true);
-                            leftArmPosition = leftArmTransform.position;
-                            rightArmPosition = rightArmTransform.position;
+                            Transform leftAim = (Transform)exosuit.ReflectionGet("aimTargetLeft", true);
+                            Transform rightAim = (Transform)exosuit.ReflectionGet("aimTargetRight", true);
+                            leftArmPosition = leftAim.position;
+                            rightArmPosition = rightAim.position;
                         }
                     }
                 }

@@ -91,7 +91,6 @@ namespace NitroxClient.GameLogic
                     else if (exosuit)
                     {
                         mvc = exosuit.gameObject.EnsureComponent<MultiplayerExosuit>();
-                        mvc.SetArmPositions(vehicleModel.LeftArmPosition, vehicleModel.RightArmPosition);
                     }
                 }
 
@@ -100,6 +99,7 @@ namespace NitroxClient.GameLogic
                     mvc.SetPositionVelocityRotation(remotePosition, remoteVelocity, remoteRotation, angularVelocity);
                     mvc.SetThrottle(vehicleModel.AppliedThrottle);
                     mvc.SetSteeringWheel(vehicleModel.SteeringWheelYaw, vehicleModel.SteeringWheelPitch);
+                    mvc.SetArmPositions(vehicleModel.LeftAimTarget, vehicleModel.RightAimTarget);
                 }
             }
             if (player.IsPresent())

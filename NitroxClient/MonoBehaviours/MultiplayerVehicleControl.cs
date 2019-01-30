@@ -13,9 +13,9 @@ namespace NitroxClient.MonoBehaviours
 
         protected readonly SmoothParameter SmoothYaw = new SmoothParameter();
         protected readonly SmoothParameter SmoothPitch = new SmoothParameter();
+        protected readonly SmoothVector SmoothLeftArm = new SmoothVector();
+        protected readonly SmoothVector SmoothRightArm = new SmoothVector();
         protected SmoothVector SmoothPosition;
-        protected SmoothVector SmoothLeftArm;
-        protected SmoothVector SmoothRightArm;
         protected SmoothVector SmoothVelocity;
         protected SmoothRotation SmoothRotation;
         protected SmoothVector SmoothAngularVelocity;
@@ -29,8 +29,6 @@ namespace NitroxClient.MonoBehaviours
             SmoothVelocity = new SmoothVector(rigidbody.velocity);
             SmoothRotation = new SmoothRotation(gameObject.transform.rotation);
             SmoothAngularVelocity = new SmoothVector(rigidbody.angularVelocity);
-            SmoothLeftArm = new SmoothVector(gameObject.transform.position);
-            SmoothRightArm = new SmoothVector(gameObject.transform.position);
         }
 
         protected virtual void FixedUpdate()
@@ -45,7 +43,6 @@ namespace NitroxClient.MonoBehaviours
             SmoothRotation.FixedUpdate();
             SmoothAngularVelocity.FixedUpdate();
             rigidbody.angularVelocity = MovementHelper.GetCorrectedAngularVelocity(SmoothRotation.SmoothValue, SmoothAngularVelocity.SmoothValue, gameObject, PlayerMovement.BROADCAST_INTERVAL);
-
         }
 
         internal void SetPositionVelocityRotation(Vector3 remotePosition, Vector3 remoteVelocity, Quaternion remoteRotation, Vector3 remoteAngularVelocity)
@@ -65,8 +62,8 @@ namespace NitroxClient.MonoBehaviours
 
         internal virtual void SetArmPositions(Vector3 leftArmPosition, Vector3 rightArmPosition)
         {
-            SmoothLeftArm.Target = leftArmPosition;
-            SmoothRightArm.Target = rightArmPosition;
+           SmoothLeftArm.Target = leftArmPosition;
+           SmoothRightArm.Target = rightArmPosition;
         }
 
         internal virtual void Enter()
@@ -84,23 +81,26 @@ namespace NitroxClient.MonoBehaviours
 
     public abstract class MultiplayerVehicleControl<T> : MultiplayerVehicleControl
     {
+
         private readonly FieldInfo steeringWheelYaw = ReflectionHelper.GetField<T>("steeringWheelYaw");
         private readonly FieldInfo steeringWheelPitch = ReflectionHelper.GetField<T>("steeringWheelPitch");
 
-        private readonly FieldInfo leftArmPosition = ReflectionHelper.GetField<T>("aimTargetLeft", true);
-        private readonly FieldInfo rightArmPosition = ReflectionHelper.GetField<T>("aimTargetRight", true);
-
         protected T SteeringControl;
-        protected T ArmControl;
+        protected T ArmPositions;
 
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
+
             SteeringControl.ReflectionSet(steeringWheelYaw, SmoothYaw.SmoothValue);
             SteeringControl.ReflectionSet(steeringWheelPitch, SmoothPitch.SmoothValue);
 
-            ArmControl.ReflectionSet(leftArmPosition, SmoothLeftArm.SmoothValue);
-            ArmControl.ReflectionSet(rightArmPosition, SmoothRightArm.SmoothValue);
+            //Transform tmpAimLeftTarget = (Transform)ArmPositions.ReflectionGet("aimTargetLeft", true, false);
+            //Transform tmpAimRightTarget = (Transform)ArmPositions.ReflectionGet("aimTargetRight", true, false);
+
+            //tmpAimLeftTarget.position = SmoothLeftArm.SmoothValue;
+            //tmpAimRightTarget.position = SmoothRightArm.SmoothValue;
+
         }
     }
 }
