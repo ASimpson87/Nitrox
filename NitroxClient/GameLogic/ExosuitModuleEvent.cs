@@ -16,14 +16,13 @@ namespace NitroxClient.GameLogic
             this.packetSender = packetSender;
         }
 
-        public void BroadcastGrapplingHookStart(ExosuitGrapplingArm grapplingArm)
+        public void BroadcastGrapplingHookUse(ExosuitGrapplingArm grapplingArm, bool isStarting)
         {
             if (!string.IsNullOrEmpty(grapplingArm.gameObject.GetGuid()))
             {
-                Log.Info("GRAPPLING: " + grapplingArm);
-                //string Guid = GuidHelper.GetGuid(grapplingArm.gameObject);
-                //ExosuitGrapplingAction Changed = new ExosuitGrapplingAction(Guid);
-               // packetSender.Send(Changed);
+                string Guid = GuidHelper.GetGuid(grapplingArm.gameObject);
+                ExosuitGrapplingAction Changed = new ExosuitGrapplingAction(Guid, isStarting);
+               packetSender.Send(Changed);
             }
         }
 
@@ -54,6 +53,7 @@ namespace NitroxClient.GameLogic
             string Guid = GuidHelper.GetGuid(exo.gameObject);
             if (!string.IsNullOrEmpty(Guid))
             {
+                Log.Info("TESTING: " + Guid);
                 string leftArmGuid = "8EBFDCE5-B4D6-4F16-85B8-58BA71ECED77";
                 string rightArmGuid = "D9624C09-ABA1-4B9E-AE77-A63F83ACD59A";
 

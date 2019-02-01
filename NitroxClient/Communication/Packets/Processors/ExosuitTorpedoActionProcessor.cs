@@ -28,7 +28,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             using (packetSender.Suppress<ExosuitTorpedoAction>())
             {
-                // Copied from TryShoot (cooldown not required as shot is managed by pilot)
+                // Copied from TryShoot
                 GameObject _gameObject = GuidHelper.RequireObjectFrom(packet.Guid);
                 ExosuitTorpedoArm torpedoArm =_gameObject.GetComponent<ExosuitTorpedoArm>();
                 Exosuit exosuit = torpedoArm.GetComponentInParent<Exosuit>();

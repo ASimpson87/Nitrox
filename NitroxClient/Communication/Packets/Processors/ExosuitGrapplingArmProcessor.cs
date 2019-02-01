@@ -16,9 +16,6 @@ namespace NitroxClient.Communication.Packets.Processors
     public class ExosuitGrapplingArmProcessor : ClientPacketProcessor<ExosuitGrapplingAction>
     {
         private readonly IPacketSender packetSender;
-        private static float torpedoStart = 0f;
-        private static float torpedoCooldown = 5f;
-        private static Timer animStopTimer;
 
         public ExosuitGrapplingArmProcessor(IPacketSender packetSender)
         {
@@ -26,10 +23,24 @@ namespace NitroxClient.Communication.Packets.Processors
         }
         public override void Process(ExosuitGrapplingAction packet)
         {
-            using (packetSender.Suppress<ExosuitTorpedoAction>())
+            using (packetSender.Suppress<ExosuitGrapplingAction>())
             {
-
-                Log.Info("SHOULDWORK");
+                GameObject _gameObject = GuidHelper.RequireObjectFrom(packet.Guid);
+                ExosuitGrapplingArm grapplingArm = _gameObject.GetComponent<ExosuitGrapplingArm>();
+                Exosuit exosuit = grapplingArm.GetComponentInParent<Exosuit>();
+                if (packet.Start)
+                {
+                    grapplingArm.animator.SetBool("use_tool", true);
+                    if (!grapplingArm.rope.isLaunching)
+                    {
+                        grapplingArm.rope.LaunchHook(35f);
+                    }
+                }
+                else
+                {
+                    grapplingArm.animator.SetBool("use_tool", false);
+                    grapplingArm.ReflectionCall("ResetHook");
+                }
             }
         }
     }

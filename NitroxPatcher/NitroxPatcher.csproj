@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
+    <Compile Include="Patches\ExosuitRemoveNonPilotUpdate_Patch.cs" />
     <Compile Include="Patches\BaseAddBulkheadGhost_UpdatePlacement_Patch.cs" />
     <Compile Include="Patches\BaseAddModuleGhost_UpdatePlacement_Patch.cs" />
     <Compile Include="Patches\BaseDeconstructable_Deconstructor_Patch.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Patches\EscapePod_OnRepair_Patch.cs" />
     <Compile Include="Patches\ExosuitArmSpawned_Patch.cs" />
     <Compile Include="Patches\ExosuitClawArmUse_Patch.cs" />
+    <Compile Include="Patches\ExosuitGrapplingArmStop_Patch.cs" />
     <Compile Include="Patches\ExosuitGrapplingArmStart_Patch.cs" />
     <Compile Include="Patches\IngameMenu_QuitGame_Patch.cs" />
     <Compile Include="Patches\Inventory_OnApplicationQuit_Patch.cs" />
