@@ -77,6 +77,7 @@
     <Compile Include="Communication\Packets\Processors\RemotePlayerEquipmentRemovedProcessor.cs" />
     <Compile Include="Communication\Packets\Processors\ExosuitSpawnedArmProcessor.cs" />
     <Compile Include="Communication\Packets\Processors\ExosuitClawActionProcessor.cs" />
+    <Compile Include="Communication\Packets\Processors\ExosuitGrapplingArmProcessor.cs" />
     <Compile Include="Communication\Packets\Processors\VehicleModuleChangeProcessor.cs" />
     <Compile Include="Communication\Packets\Processors\ExosuitTorpedoActionProcessor.cs" />
     <Compile Include="Communication\Packets\Processors\SubRootChangedProcessor.cs" />

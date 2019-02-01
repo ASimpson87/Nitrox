@@ -4,11 +4,11 @@ using UnityEngine;
 namespace NitroxModel.Packets
 {
     [Serializable]
-    public class ExosuitClawAction : Packet
+    public class ExosuitClawArmAction : Packet
     {
         public string Guid { get; }
 
-        public ExosuitClawAction(string guid)
+        public ExosuitClawArmAction(string guid)
         {
             Guid = guid;
         }

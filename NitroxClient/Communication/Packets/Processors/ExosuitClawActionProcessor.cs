@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace NitroxClient.Communication.Packets.Processors
 {
-    public class ExosuitClawActionProcessor : ClientPacketProcessor<ExosuitClawAction>
+    public class ExosuitClawActionProcessor : ClientPacketProcessor<ExosuitClawArmAction>
     {
         private readonly IPacketSender packetSender;
 
@@ -18,9 +18,9 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             this.packetSender = packetSender;
         }
-        public override void Process(ExosuitClawAction packet)
+        public override void Process(ExosuitClawArmAction packet)
         {
-            using (packetSender.Suppress<ExosuitClawAction>())
+            using (packetSender.Suppress<ExosuitClawArmAction>())
             {
 
                 GameObject _gameObject = GuidHelper.RequireObjectFrom(packet.Guid);

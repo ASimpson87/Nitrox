@@ -54,7 +54,7 @@ namespace NitroxClient.Communication.Packets.Processors
                 bool shotCompleted = false;
                 if (num >= 5f)
                 {
-                    if (TorpedoShot(storageInSlot, torpedoArm, torpedoType, torpedoArm.siloFirst))
+                    if (TorpedoShot(storageInSlot, torpedoArm, torpedoType, torpedoArm.siloFirst, packet.Forward, packet.Rotation))
                     {
                         torpedoArm.ReflectionSet("timeFirstShot", Time.time);
                         shotCompleted = true;
@@ -62,7 +62,7 @@ namespace NitroxClient.Communication.Packets.Processors
                 }
                 else
                 {
-                    if (TorpedoShot(storageInSlot, torpedoArm, torpedoType, torpedoArm.siloSecond))
+                    if (TorpedoShot(storageInSlot, torpedoArm, torpedoType, torpedoArm.siloSecond, packet.Forward, packet.Rotation))
                     {
                         torpedoArm.ReflectionSet("timeSecondShot", Time.time);
                         shotCompleted = true;
@@ -77,7 +77,7 @@ namespace NitroxClient.Communication.Packets.Processors
         }
 
         //Copied this from the Vehicle class
-        public static bool TorpedoShot(ItemsContainer container, ExosuitTorpedoArm torpedoArm, TorpedoType torpedoType, Transform muzzle)
+        public static bool TorpedoShot(ItemsContainer container, ExosuitTorpedoArm torpedoArm, TorpedoType torpedoType, Transform muzzle, Vector3 forward, Quaternion rotation)
         {
             if (torpedoType != null && container.DestroyItem(torpedoType.techType))
             {
@@ -85,7 +85,14 @@ namespace NitroxClient.Communication.Packets.Processors
                 {
                     torpedoStart = Time.time;
                     SetAnimTimer(torpedoArm);
-                    torpedoArm.ReflectionCall("Shoot", false, false, new object[] { torpedoType, muzzle, true });
+                    GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(torpedoType.prefab);
+                    Transform component = gameObject.GetComponent<Transform>();
+                    SeamothTorpedo component2 = gameObject.GetComponent<SeamothTorpedo>();
+                    Vector3 zero = Vector3.zero;
+                    Rigidbody componentInParent = muzzle.GetComponentInParent<Rigidbody>();
+                    Vector3 rhs = (!(componentInParent != null)) ? Vector3.zero : componentInParent.velocity;
+                    float speed = Vector3.Dot(forward, rhs);
+                    component2.Shoot(muzzle.position, rotation, speed, -1f);
                     return true;
                 }
             }

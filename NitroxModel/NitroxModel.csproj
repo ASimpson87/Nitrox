@@ -90,7 +90,8 @@
     <Compile Include="Helper\TextureScaler.cs" />
     <Compile Include="Helper\IPHelper.cs" />
     <Compile Include="Packets\ExosuitSpawnedArmAction.cs" />
-    <Compile Include="Packets\ExosuitClawAction.cs" />
+    <Compile Include="Packets\ExosuitClawArmAction.cs" />
+    <Compile Include="Packets\ExosuitGrapplingArmAction.cs" />
     <Compile Include="Packets\ExosuitTorpedoAction.cs" />
     <Compile Include="Packets\BedEnter.cs" />
     <Compile Include="Packets\EscapePodRadioRepair.cs" />

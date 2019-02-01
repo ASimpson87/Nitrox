@@ -16,13 +16,24 @@ namespace NitroxClient.GameLogic
             this.packetSender = packetSender;
         }
 
+        public void BroadcastGrapplingHookStart(ExosuitGrapplingArm grapplingArm)
+        {
+            if (!string.IsNullOrEmpty(grapplingArm.gameObject.GetGuid()))
+            {
+                Log.Info("GRAPPLING: " + grapplingArm);
+                //string Guid = GuidHelper.GetGuid(grapplingArm.gameObject);
+                //ExosuitGrapplingAction Changed = new ExosuitGrapplingAction(Guid);
+               // packetSender.Send(Changed);
+            }
+        }
+
         public void BroadcastTorpedoLaunch(ExosuitTorpedoArm torpedoArm, TorpedoType torpedoType, Transform siloTransform, bool verbosed)
         {
             if (!string.IsNullOrEmpty(torpedoArm.gameObject.GetGuid()))
             {
                 
                 string Guid = GuidHelper.GetGuid(torpedoArm.gameObject);
-                ExosuitTorpedoAction Changed = new ExosuitTorpedoAction(torpedoType.techType, Guid, verbosed);
+                ExosuitTorpedoAction Changed = new ExosuitTorpedoAction(torpedoType.techType, Guid, verbosed, Player.main.camRoot.GetAimingTransform().forward, Player.main.camRoot.GetAimingTransform().rotation);
                 packetSender.Send(Changed);
             }
         }
@@ -32,8 +43,8 @@ namespace NitroxClient.GameLogic
             if (!string.IsNullOrEmpty(clawArm.gameObject.GetGuid()))
             {
                 string Guid = GuidHelper.GetGuid(clawArm.gameObject);
-
-                ExosuitClawAction Changed = new ExosuitClawAction(Guid);
+                Log.Info("CLAW PUNCH: " + Guid);
+                ExosuitClawArmAction Changed = new ExosuitClawArmAction(Guid);
                 packetSender.Send(Changed);
             }
         }
