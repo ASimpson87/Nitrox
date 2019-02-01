@@ -65,6 +65,7 @@
     <Compile Include="Patches\DayNightCycle_OnConsoleCommand_day_Patch.cs" />
     <Compile Include="Patches\DayNightCycle_OnConsoleCommand_night_Patch.cs" />
     <Compile Include="Patches\DevConsole_Update_Patch.cs" />
+    <Compile Include="Patches\EscapePod_OnRepair_Patch.cs" />
     <Compile Include="Patches\ExosuitArmSpawned_Patch.cs" />
     <Compile Include="Patches\ExosuitClawArmUse_Patch.cs" />
     <Compile Include="Patches\IngameMenu_QuitGame_Patch.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Patches\DockedVehicleHandTarget_OnHandClick_Patch.cs" />
     <Compile Include="Patches\LargeWorldStreamer_Deinitialize.cs" />
     <Compile Include="Patches\Player_SetCurrentSub_Patch.cs" />
+    <Compile Include="Patches\Radio_OnRepair_Patch.cs" />
     <Compile Include="Patches\ExosuitTorpedoArmShoot_Patch.cs" />
     <Compile Include="Patches\VehicleDockingBay_DockVehicle_Patch.cs" />
     <Compile Include="Patches\UpgradeModuleChanged_Patch.cs" />

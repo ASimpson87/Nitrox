@@ -63,12 +63,15 @@ namespace NitroxClient.Communication.Packets.Processors
             bool hasBasePiecesToSpawn = packet.BasePieces.Count > 0;
             bool hasVehiclesToSpawn = packet.Vehicles.Count > 0;
 
+            SpawnRemotePlayersAfterBasePiecesFinish(packet.RemotePlayerData, hasBasePiecesToSpawn);
             SpawnVehiclesAfterBasePiecesFinish(packet.Vehicles, hasBasePiecesToSpawn);
             SetPlayerLocationAfterBasePiecesFinish(packet.PlayerSpawnData, packet.PlayerSubRootGuid, hasBasePiecesToSpawn);
             AssignBasePieceMetadataAfterBuildingsComplete(packet.BasePieces);
             SpawnPlayerEquipment(packet.EquippedItems, hasVehiclesToSpawn);
             SpawnInventoryItemsAfterBasePiecesFinish(packet.InventoryItems, hasBasePiecesToSpawn, packet.PlayerGuid);
             SpawnRemotePlayersAfterBasePiecesFinish(packet.RemotePlayerData, hasBasePiecesToSpawn);
+            SpawnPlayerEquipment(packet.EquippedItems, hasVehiclesToSpawn, hasBasePiecesToSpawn);
+            SpawnInventoryItemsAfterBasePiecesFinish(packet.InventoryItems, hasBasePiecesToSpawn, packet.PlayerGuid);
         }
 
         private void SpawnGlobalRootEntities(List<Entity> globalRootEntities)
@@ -196,13 +199,13 @@ namespace NitroxClient.Communication.Packets.Processors
             Log.Info("Received initial sync Player Guid: " + playerguid);
         }    
         
-        private void SpawnPlayerEquipment(List<EquippedItemData> equippedItems, bool vehiclesToSpawn)
+        private void SpawnPlayerEquipment(List<EquippedItemData> equippedItems, bool vehiclesToSpawn, bool basePiecesToSpawn)
         {
             Log.Info("Received initial sync packet with " + equippedItems.Count + " equipment items");
 
             EquipmentItemAdder itemAdder = new EquipmentItemAdder(packetSender, equippedItems);
 
-            if (vehiclesToSpawn)
+            if (vehiclesToSpawn && basePiecesToSpawn)
             {
                 ThrottledBuilder.main.QueueDrained += itemAdder.AddEquipmentToInventories;
             }
@@ -378,6 +381,7 @@ namespace NitroxClient.Communication.Packets.Processors
                                 InventoryItem inventoryItem = new InventoryItem(pickupable);
                                 inventoryItem.container = equipment;
                                 inventoryItem.item.Reparent(equipment.tr);
+
                                 Dictionary<string, InventoryItem> itemsBySlot = (Dictionary<string, InventoryItem>)equipment.ReflectionGet("equipment");
                                 itemsBySlot[equippedItem.Slot] = inventoryItem;
 
@@ -485,7 +489,7 @@ namespace NitroxClient.Communication.Packets.Processors
 
                 foreach (InitialRemotePlayerData playerData in remotePlayerData)
                 {
-                    RemotePlayer player = remotePlayerManager.Create(playerData.PlayerContext);
+                    RemotePlayer player = remotePlayerManager.Create(playerData.PlayerContext, playerData.EquippedTechTypes);
 
                     if (playerData.SubRootGuid.IsPresent())
                     {
