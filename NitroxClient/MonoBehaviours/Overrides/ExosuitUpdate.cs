@@ -13,6 +13,6 @@ namespace NitroxClient.MonoBehaviours.Overrides
     // Token: 0x020006BA RID: 1722
     public static class ExosuitUpdate
     {
-        public static bool updateArmsOverride => true;
+        public static bool updateArmsOverride => false;
     }
 }
