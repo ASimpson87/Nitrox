@@ -79,11 +79,6 @@ namespace NitroxClient.GameLogic
 
             ModuleRemoved moduleRemoved = new ModuleRemoved(ownerGuid, slot, itemGuid);
             packetSender.Send(moduleRemoved);
-
-            Player player = owner.GetComponent<Player>();
-            bool isPlayerEquipment = (player != null);
-            EquipmentRemoveItem equipPacket = new EquipmentRemoveItem(ownerGuid, slot, itemGuid, isPlayerEquipment);
-            packetSender.Send(equipPacket);
         }
 
         public void AddItems(List<EquippedItemData> equippedItems)

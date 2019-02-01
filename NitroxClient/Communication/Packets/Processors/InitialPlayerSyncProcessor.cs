@@ -67,7 +67,6 @@ namespace NitroxClient.Communication.Packets.Processors
             SpawnVehiclesAfterBasePiecesFinish(packet.Vehicles, hasBasePiecesToSpawn);
             SetPlayerLocationAfterBasePiecesFinish(packet.PlayerSpawnData, packet.PlayerSubRootGuid, hasBasePiecesToSpawn);
             AssignBasePieceMetadataAfterBuildingsComplete(packet.BasePieces);
-            SpawnPlayerEquipment(packet.EquippedItems, hasVehiclesToSpawn);
             SpawnInventoryItemsAfterBasePiecesFinish(packet.InventoryItems, hasBasePiecesToSpawn, packet.PlayerGuid);
             SpawnRemotePlayersAfterBasePiecesFinish(packet.RemotePlayerData, hasBasePiecesToSpawn);
             SpawnPlayerEquipment(packet.EquippedItems, hasVehiclesToSpawn, hasBasePiecesToSpawn);
