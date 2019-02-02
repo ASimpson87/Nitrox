@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientAutoFacRegistrar.cs" />
+    <Compile Include="Communication\Packets\Processors\ExosuitGrapplingHitProcessor.cs" />
     <Compile Include="GameLogic\PlayerModel\Equipment\ScubaSuitVisibiliyHandler.cs" />
     <Compile Include="MonoBehaviours\Overrides\ExosuitUpdate.cs" />
     <Compile Include="Unity\Helper\RendererHelpers.cs" />

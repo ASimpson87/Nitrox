@@ -26,6 +26,16 @@ namespace NitroxClient.GameLogic
             }
         }
 
+        public void BroadcastGrapplingHookHit(ExosuitGrapplingArm grapplingArm)
+        {
+            if (!string.IsNullOrEmpty(grapplingArm.gameObject.GetGuid()))
+            {
+                string Guid = GuidHelper.GetGuid(grapplingArm.gameObject);
+                ExosuitGrapplingHit Changed = new ExosuitGrapplingHit(Guid, MainCamera.camera.transform.position, MainCamera.camera.transform.forward);
+                packetSender.Send(Changed);
+            }
+        }
+
         public void BroadcastTorpedoLaunch(ExosuitTorpedoArm torpedoArm, TorpedoType torpedoType, Transform siloTransform, bool verbosed)
         {
             if (!string.IsNullOrEmpty(torpedoArm.gameObject.GetGuid()))
@@ -42,7 +52,6 @@ namespace NitroxClient.GameLogic
             if (!string.IsNullOrEmpty(clawArm.gameObject.GetGuid()))
             {
                 string Guid = GuidHelper.GetGuid(clawArm.gameObject);
-                Log.Info("CLAW PUNCH: " + Guid);
                 ExosuitClawArmAction Changed = new ExosuitClawArmAction(Guid);
                 packetSender.Send(Changed);
             }
@@ -53,7 +62,6 @@ namespace NitroxClient.GameLogic
             string Guid = GuidHelper.GetGuid(exo.gameObject);
             if (!string.IsNullOrEmpty(Guid))
             {
-                Log.Info("TESTING: " + Guid);
                 string leftArmGuid = "8EBFDCE5-B4D6-4F16-85B8-58BA71ECED77";
                 string rightArmGuid = "D9624C09-ABA1-4B9E-AE77-A63F83ACD59A";
 

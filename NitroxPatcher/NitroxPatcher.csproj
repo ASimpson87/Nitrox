@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
+    <Compile Include="Patches\ExosuitGrapplingArmHit_Patch.cs" />
     <Compile Include="Patches\ExosuitRemoveNonPilotUpdate_Patch.cs" />
     <Compile Include="Patches\BaseAddBulkheadGhost_UpdatePlacement_Patch.cs" />
     <Compile Include="Patches\BaseAddModuleGhost_UpdatePlacement_Patch.cs" />

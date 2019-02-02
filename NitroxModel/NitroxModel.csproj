@@ -89,6 +89,7 @@
     <Compile Include="Discovery\InstallationFinders\ConfigFileGameFinder.cs" />
     <Compile Include="Helper\TextureScaler.cs" />
     <Compile Include="Helper\IPHelper.cs" />
+    <Compile Include="Packets\ExosuitGrapplingArmHit.cs" />
     <Compile Include="Packets\ExosuitSpawnedArmAction.cs" />
     <Compile Include="Packets\ExosuitClawArmAction.cs" />
     <Compile Include="Packets\ExosuitGrapplingArmAction.cs" />
