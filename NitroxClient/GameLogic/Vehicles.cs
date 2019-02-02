@@ -124,7 +124,7 @@ namespace NitroxClient.GameLogic
             rigidBody.isKinematic = false;
             GuidHelper.SetNewGuid(gameObject, guid);
             // Updates names and colours with persisted data .....yeah.....
-            if (techType != TechType.Cyclops)
+            if (techType == TechType.Seamoth || techType == TechType.Exosuit)
             { // Seamoth & Prawn suit
                 Vehicle vehicle = gameObject.GetComponent<Vehicle>();
                 if (dockingBayGuid.IsPresent())
@@ -152,7 +152,7 @@ namespace NitroxClient.GameLogic
                     vehicle.subName.DeserializeColors(vehicle.vehicleColors);
                 }
             }
-            else // Cyclops
+            else if(techType == TechType.Cyclops) // Cyclops
             {
                 GameObject target = GuidHelper.RequireObjectFrom(guid);
                 SubNameInput subNameInput = target.RequireComponentInChildren<SubNameInput>();

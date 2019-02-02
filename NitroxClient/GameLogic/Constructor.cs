@@ -16,7 +16,7 @@ namespace NitroxClient.GameLogic
     {
         private readonly IPacketSender packetSender;
 
-        
+
 
         public MobileVehicleBay(IPacketSender packetSender)
         {
@@ -49,25 +49,16 @@ namespace NitroxClient.GameLogic
                     SubNameInput subNameInput = target.RequireComponentInChildren<SubNameInput>();
                     SubName subNameTarget = (SubName)subNameInput.ReflectionGet("target");
 
-                    for (int i = 0; i < subNameTarget.GetColors().Length; i ++)
-                    {
-                        Colours[i] = tmpColour;
-                    }
-                    HSB = new Vector3[]
-                    {
-                        new Vector3(0f, 0f, 1f)
-                    };
-                    name = "CYCLOPS";
+                    Colours = subNameTarget.GetColors();
+                    HSB = subNameTarget.GetColors();
+                    name = subNameTarget.GetName();
                 }
-                else
+                else if(vehicle)
                 { // Seamoth & Prawn Suit
                     name = (string)vehicle.ReflectionCall("GetName", true);
-                    HSB = new Vector3[]
-                    {
-                        new Vector3(0f, 0f, 1f)
-                    };
+                    HSB = vehicle.subName.GetColors();
+                    Colours = vehicle.subName.GetColors();
                 }
-
                 ConstructorBeginCrafting beginCrafting = new ConstructorBeginCrafting(constructorGuid, constructedObjectGuid, techType, duration, childIdentifiers, constructedObject.transform.position, constructedObject.transform.rotation, name, HSB, Colours);
                 packetSender.Send(beginCrafting);
             }
