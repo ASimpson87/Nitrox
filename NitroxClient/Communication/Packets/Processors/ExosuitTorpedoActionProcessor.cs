@@ -28,7 +28,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             using (packetSender.Suppress<ExosuitTorpedoAction>())
             {
-                // Copied from TryShoot
+                // Copied from TryShoot - Pilots camera transform used as torpedo vectors
                 GameObject _gameObject = GuidHelper.RequireObjectFrom(packet.Guid);
                 ExosuitTorpedoArm torpedoArm =_gameObject.GetComponent<ExosuitTorpedoArm>();
                 Exosuit exosuit = torpedoArm.GetComponentInParent<Exosuit>();

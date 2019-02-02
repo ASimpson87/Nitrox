@@ -30,14 +30,14 @@ namespace NitroxClient.Communication.Packets.Processors
                 Exosuit exosuit = grapplingArm.GetComponentInParent<Exosuit>();
 
                 GrapplingHook hook = (GrapplingHook)grapplingArm.ReflectionGet("hook");
-                Transform front = (Transform)grapplingArm.ReflectionGet("front");
+                Transform front = (Transform)grapplingArm.ReflectionGet("front", true);
 
                 hook.transform.parent = null;
                 hook.transform.position = front.transform.position;
                 hook.SetFlying(true);
                 GameObject x = null;
                 Vector3 a = default(Vector3);
-                UWE.Utils.TraceFPSTargetPosition(exosuit.gameObject, 100f, ref x, ref a, false);
+                UWE.Utils.TraceForTarget(packet.Position, packet.Forward, exosuit.gameObject, 100f, ref x, ref a, false);
                 if (x == null || x == hook.gameObject)
                 {
                     a = packet.Position + packet.Forward * 25f;
